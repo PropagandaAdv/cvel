@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="it">
+<head>
+<!--
+  CONSEGNE VELOCI S.r.l. | Homepage (sito statico, nessun build step)
+
+  NOTE PER IL CLIENTE
+  - Questa e' solo la homepage. Le pagine interne, la versione inglese e la sezione news sono fuori da questo lavoro.
+  - Form contatti: finche' non viene inserito l'endpoint Formspree (variabile FORM_ENDPOINT in fondo alla pagina),
+    il form apre l'app di posta del visitatore con il messaggio gia' scritto (mailto verso operativo.cattolica@cvel.it).
+    Il messaggio parte solo quando il visitatore preme Invia nel suo programma di posta.
+  - "Invia il tuo curriculum" e' un link mailto (operativo.cattolica@cvel.it, oggetto "Candidatura"). In fase 2 si puo' sostituire con un form dedicato.
+  - Hero: su telefono, tablet in verticale e con movimento ridotto si vede l'hero statico (immagini + tre capitoli impilati). E' voluto.
+  - Immagini e video del percorso del pacco sono generati con AI (nessun marchio UPS generato: il marchio compare solo nel logo ufficiale).
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consegne Veloci | Agenzia esclusiva UPS a Cattolica e Civitanova Marche</title>
+<meta name="description" content="Consegne Veloci dal 1987, Agenzia e Distributore Esclusivo UPS dal 2008 per la costa adriatica centrale. Filiali a Cattolica e Civitanova Marche, cinque province e San Marino.">
+<meta name="theme-color" content="#0E0A08">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preload" as="image" href="assets/hero-poster.webp" type="image/webp" fetchpriority="high">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Consegne Veloci | Agenzia esclusiva UPS">
+<meta property="og:description" content="Ogni consegna parte da qui. Distribuzione espressa per UPS dal 2008 a Rimini, Pesaro-Urbino, Macerata, Fermo, Ascoli Piceno e San Marino.">
+<!-- DEPLOY STEP: aggiungere og:url e og:image con URL assoluti dopo il deploy -->
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script>document.documentElement.classList.add('js');</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'cv-amber': '#F7A800',
+          'cv-amber-light': '#FFC94D',
+          'cv-brown': '#351C15',
+          'cv-black': '#000000',
+          'cv-ink': '#0E0A08',
+          'cv-white': '#FFFFFF',
+          'cv-paper': '#F7F4EF'
+        },
+        fontFamily: {
+          sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  };
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "#cattolica",
+      "name": "Consegne Veloci S.r.l. - Filiale di Cattolica",
+      "description": "Agenzia e Distributore Esclusivo UPS per la costa adriatica centrale.",
+      "telephone": "+39 0541 833280",
+      "email": "operativo.cattolica@cvel.it",
+      "vatID": "IT01051500401",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Vincenzo Bellini 18/20",
+        "postalCode": "47841",
+        "addressLocality": "Cattolica",
+        "addressRegion": "RN",
+        "addressCountry": "IT"
+      },
+      "areaServed": ["Rimini", "Pesaro-Urbino", "Macerata", "Fermo", "Ascoli Piceno", "San Marino"]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "#civitanova",
+      "name": "Consegne Veloci S.r.l. - Filiale di Civitanova Marche",
+      "description": "Agenzia e Distributore Esclusivo UPS per la costa adriatica centrale.",
+      "telephone": "+39 0733 898068",
+      "email": "operativo.cattolica@cvel.it",
+      "vatID": "IT01051500401",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Enzo Ferrari 20/C",
+        "postalCode": "62012",
+        "addressLocality": "Civitanova Marche",
+        "addressRegion": "MC",
+        "addressCountry": "IT"
+      },
+      "areaServed": ["Rimini", "Pesaro-Urbino", "Macerata", "Fermo", "Ascoli Piceno", "San Marino"]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --ease:cubic-bezier(.22,.8,.24,1);
+    --ease-soft:cubic-bezier(.4,0,.2,1);
+    --tshadow:0 1px 2px rgba(5,3,2,.95),0 3px 12px rgba(5,3,2,.78),0 10px 44px rgba(5,3,2,.8);
+  }
+  html{overflow-x:hidden;overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:5rem}
+  body{overflow-x:hidden;overflow-x:clip;background:#0E0A08}
+  :focus-visible{outline:2px solid #F7A800;outline-offset:3px;border-radius:6px}
+
+  /* ambiente: un solo livello fisso, deriva lenta (80s) */
+  .env{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+    radial-gradient(60% 50% at 18% 20%,rgba(247,168,0,.07),transparent 70%),
+    radial-gradient(55% 45% at 85% 75%,rgba(53,28,21,.55),transparent 70%);
+    animation:envdrift 80s ease-in-out infinite alternate;will-change:transform}
+  @keyframes envdrift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,2%,0) scale(1.06)}}
+
+  /* reveal */
+  .js .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+  .js .rv.in{opacity:1;transform:none}
+  .js .rv.in.done{transition-delay:0s}
+
+  /* elementi vivi a bassa intensita' */
+  @keyframes glowpulse{0%,100%{opacity:.35}50%{opacity:.9}}
+  @keyframes cuebob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @keyframes nodepulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.6);opacity:0}}
+  .live-glow::after{content:"";position:absolute;inset:-6px;border-radius:inherit;border:1px solid rgba(247,168,0,.55);animation:glowpulse 5s ease-in-out infinite;animation-delay:-1.4s}
+  .live-cue{animation:cuebob 2.4s ease-in-out infinite;animation-delay:-.8s}
+  .node-pulse{transform-box:fill-box;transform-origin:center;animation:nodepulse 3.6s ease-out infinite;animation-delay:-1.2s}
+  body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+  /* ---------- hero scrub ---------- */
+  #hero{height:1000vh}
+  #hero-static{display:none}
+  #hero .stage{contain:paint}
+  #hero video{transform:translateZ(0)}
+  .poster{background-size:cover;background-position:center}
+  .video-ready #heroVideo{opacity:1}
+  .scrim{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(14,10,8,0) 35%,rgba(14,10,8,.62) 100%)}
+  .band{position:absolute;inset:0;display:flex;align-items:center;opacity:0;pointer-events:none;text-shadow:var(--tshadow)}
+  .band::before{content:"";position:absolute;inset:-4%;pointer-events:none;opacity:calc(.25 + .75*var(--k,1));
+    background:radial-gradient(ellipse 64% 84% at 22% 52%,rgba(8,5,3,var(--sa,.8)) 0%,rgba(8,5,3,calc(var(--sa,.8)*.8)) 52%,rgba(8,5,3,0) 84%)}
+  .band .inner{position:relative;max-width:660px}
+  .band.live .btn{pointer-events:auto}
+  .band .btn{text-shadow:none}
+  .w{display:inline-block;margin-right:.26em;--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);opacity:var(--kc)}
+  .band[data-fx="depth"] .w{transform:scale(calc(.8 + .2*var(--kc)))}
+  .band[data-fx="slide"] .w{transform:translateX(calc((1 - var(--kc))*-40px))}
+  .band[data-fx="rise"] .w{transform:translateY(calc((1 - var(--kc))*30px))}
+  .gx{background-image:linear-gradient(90deg,#F7A800,#FFC94D);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 2px 10px rgba(5,3,2,.8))}
+  .band .sub{--ks:clamp(0,(var(--k,0) - .45)*3,1);opacity:var(--ks);transform:translateY(calc((1 - var(--ks))*14px))}
+  .band .eyebrow{--ke:clamp(0,var(--k,0)*5,1);opacity:var(--ke)}
+  .band .cta{--kb:clamp(0,(var(--k,0) - .7)*4,1);opacity:var(--kb);transform:translateY(calc((1 - var(--kb))*14px))}
+  .ring{position:absolute;left:50%;bottom:2.2rem;width:44px;height:44px;margin-left:-22px;transform:rotate(-90deg);color:#F7A800;transition:opacity .6s var(--ease)}
+  .ring circle{transition:stroke-dashoffset .15s linear}
+  .ring-track{color:rgba(255,255,255,.18)}
+  .video-ready .ring{opacity:0}
+
+  @media (max-height:560px){.cue,.ring{display:none}}
+
+  /* i cinque gate dell'hero statico: identici in CSS e JS */
+  @media (max-width:720px),
+         (orientation:portrait) and (max-width:1024px),
+         (orientation:portrait) and (pointer:coarse),
+         (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+         (prefers-reduced-motion:reduce){
+    #hero{display:none}
+    #hero-static{display:block}
+  }
+  .static-block{position:relative;min-height:88svh;display:flex;align-items:flex-end;background-size:cover;background-position:center}
+  .static-block::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,8,.35) 0%,rgba(14,10,8,.15) 30%,rgba(14,10,8,.88) 78%,#0E0A08 100%)}
+
+  /* ---------- percorso (linea firma) ---------- */
+  #route text{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.12em;fill:rgba(255,255,255,.62)}
+  #route .node{transition:fill .5s var(--ease-soft),stroke .5s var(--ease-soft)}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important;transition-delay:0s!important}
+    .js .rv{opacity:1;transform:none}
+  }
+  @media print{.env,#route{display:none}}
+</style>
+</head>
+
+<body class="bg-cv-ink font-sans font-light text-cv-white antialiased selection:bg-cv-amber selection:text-cv-ink">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-cv-amber focus:px-5 focus:py-3 focus:font-semibold focus:text-cv-ink">Vai al contenuto</a>
+<div class="env" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header id="top" class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-cv-ink/70 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
+    <a href="#top" class="block shrink-0 overflow-hidden rounded-xl bg-white" aria-label="Consegne Veloci, torna in alto">
+      <img src="assets/brand/logo-cv.png" alt="Consegne Veloci, agenzia UPS" width="267" height="209" class="h-8 w-auto lg:h-10">
+    </a>
+    <nav aria-label="Principale" class="hidden items-center gap-8 lg:flex">
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#azienda">L'azienda</a>
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#servizi">Servizi</a>
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#sostenibilita">Sostenibilità</a>
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#documenti">Documenti</a>
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#lavora">Lavora con noi</a>
+      <a class="text-sm font-semibold text-white/80 transition-colors duration-300 hover:text-cv-amber" href="#contatti">Contatti</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#contatti" class="hidden rounded-full bg-cv-amber px-5 py-2.5 text-sm font-semibold text-cv-ink transition-colors duration-300 hover:bg-cv-amber-light sm:inline-flex">Contattaci</a>
+      <button id="menuBtn" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white lg:hidden" aria-expanded="false" aria-controls="menuPanel" aria-label="Apri il menu">
+        <i data-lucide="menu" class="h-6 w-6" id="iconMenu"></i>
+        <i data-lucide="x" class="hidden h-6 w-6" id="iconClose"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="menuPanel" class="invisible fixed inset-0 z-[45] flex flex-col justify-center bg-cv-ink px-8 opacity-0 transition-all duration-500 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+  <nav aria-label="Menu mobile" class="flex flex-col gap-1">
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#azienda">L'azienda</a>
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#servizi">Servizi</a>
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#sostenibilita">Sostenibilità</a>
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#documenti">Documenti</a>
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#lavora">Lavora con noi</a>
+    <a class="menu-link border-b border-white/10 py-4 text-3xl font-bold tracking-tight" href="#contatti">Contatti</a>
+  </nav>
+  <a href="#contatti" class="menu-link mt-10 inline-flex w-fit items-center justify-center rounded-full bg-cv-amber px-8 py-4 text-base font-semibold text-cv-ink">Contattaci</a>
+</div>
+
+<!-- linea del percorso (elemento firma) -->
+<div id="route" class="pointer-events-none absolute left-0 top-0 z-20 hidden w-24 lg:block" aria-hidden="true">
+  <svg class="absolute left-0 top-0 overflow-visible" width="96" id="routeSvg">
+    <path id="routeBg" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+    <path id="routeFg" fill="none" stroke="#F7A800" stroke-width="1.6" stroke-linecap="round"/>
+    <g id="routeNodes"></g>
+    <g id="routeDotG"><circle id="routeDot" r="5" fill="#F7A800"/><circle id="routeDotHalo" r="11" fill="#F7A800" opacity=".18"/></g>
+  </svg>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ HERO: IL PERCORSO DEL PACCO ============ -->
+<section id="hero" aria-label="Il percorso del pacco, dal carico alla consegna">
+  <div class="stage sticky top-0 h-screen w-full overflow-hidden bg-cv-ink">
+    <div class="poster absolute inset-0"></div>
+    <video id="heroVideo" class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <div class="scrim"></div>
+
+    <div class="band" data-a="0" data-b="0.22" data-fx="depth" data-ramp="0.03" style="--sa:.82">
+      <div class="inner px-6 pt-16 sm:px-12 lg:pl-32">
+        <p class="eyebrow font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">01 / Il carico</p>
+        <h1 class="mt-5 text-[clamp(2.75rem,7vw,5.5rem)] font-bold leading-[1.05] tracking-tight" data-split>Ogni consegna parte da *qui.*</h1>
+        <p class="sub mt-6 max-w-[34rem] text-base font-normal leading-relaxed text-white/90 sm:text-lg">Dalle filiali di Cattolica e Civitanova Marche, ogni mattina i nostri corrieri preparano le spedizioni espresse UPS del territorio.</p>
+      </div>
+    </div>
+
+    <div class="band" data-a="0.27" data-b="0.5" data-fx="slide" style="--sa:.94">
+      <div class="inner px-6 pt-16 sm:px-12 lg:pl-32">
+        <p class="eyebrow font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">02 / La strada</p>
+        <h2 class="mt-5 text-[clamp(2.25rem,5.6vw,4.5rem)] font-bold leading-[1.05] tracking-tight" data-split>Cinque province. Una Repubblica. *Ogni giorno.*</h2>
+        <p class="sub mt-6 max-w-[34rem] text-base font-normal leading-relaxed text-white/90 sm:text-lg">Rimini, Pesaro-Urbino, Macerata, Fermo, Ascoli Piceno e San Marino.</p>
+      </div>
+    </div>
+
+    <div class="band" data-a="0.66" data-b="1" data-fx="rise" style="--sa:.94">
+      <div class="inner px-6 pt-16 sm:px-12 lg:pl-32">
+        <p class="eyebrow font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">03 / La consegna</p>
+        <h2 class="mt-5 text-[clamp(2.25rem,5.6vw,4.5rem)] font-bold leading-[1.05] tracking-tight" data-split>L'ultimo miglio è il nostro *mestiere.*</h2>
+        <p class="sub mt-6 max-w-[34rem] text-base font-normal leading-relaxed text-white/90 sm:text-lg">Distribuzione espressa per UPS dal 2008.</p>
+        <div class="cta mt-9 flex flex-wrap items-center gap-4">
+          <a href="#contatti" class="btn inline-flex items-center justify-center rounded-full bg-cv-amber px-8 py-4 text-base font-semibold text-cv-ink transition-colors duration-300 hover:bg-cv-amber-light">Contattaci</a>
+          <a href="#azienda" class="btn inline-flex items-center justify-center rounded-full border border-white/50 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-colors duration-300 hover:border-cv-amber hover:text-cv-amber">Chi siamo</a>
+        </div>
+      </div>
+    </div>
+
+    <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
+      <circle class="ring-track" cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/>
+    </svg>
+    <div class="cue pointer-events-none absolute bottom-7 left-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70 sm:left-12 lg:left-32" aria-hidden="true">
+      <span class="live-cue inline-flex"><i data-lucide="chevron-down" class="h-5 w-5"></i></span> Scorri
+    </div>
+  </div>
+</section>
+
+<!-- hero statico: telefono, tablet verticale, movimento ridotto -->
+<section id="hero-static" aria-label="Il percorso del pacco, dal carico alla consegna">
+  <article class="static-block px-6 pb-14 pt-24" style="background-image:url('assets/hero-poster.webp')">
+    <div class="relative max-w-xl">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">01 / Il carico</p>
+      <h1 class="mt-4 text-[2.6rem] font-bold leading-[1.05] tracking-tight sm:text-6xl">Ogni consegna parte da <span class="gx">qui.</span></h1>
+      <p class="mt-5 text-base font-normal leading-relaxed text-white/90">Dalle filiali di Cattolica e Civitanova Marche, ogni mattina i nostri corrieri preparano le spedizioni espresse UPS del territorio.</p>
+    </div>
+  </article>
+  <article class="static-block px-6 pb-14 pt-24" style="background-image:url('assets/hero-ch2.webp')">
+    <div class="relative max-w-xl">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">02 / La strada</p>
+      <h2 class="mt-4 text-[2.2rem] font-bold leading-[1.05] tracking-tight sm:text-5xl">Cinque province. Una Repubblica. <span class="gx">Ogni giorno.</span></h2>
+      <p class="mt-5 text-base font-normal leading-relaxed text-white/90">Rimini, Pesaro-Urbino, Macerata, Fermo, Ascoli Piceno e San Marino.</p>
+    </div>
+  </article>
+  <article class="static-block px-6 pb-14 pt-24" style="background-image:url('assets/hero-ending.webp')">
+    <div class="relative max-w-xl">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">03 / La consegna</p>
+      <h2 class="mt-4 text-[2.2rem] font-bold leading-[1.05] tracking-tight sm:text-5xl">L'ultimo miglio è il nostro <span class="gx">mestiere.</span></h2>
+      <p class="mt-5 text-base font-normal leading-relaxed text-white/90">Distribuzione espressa per UPS dal 2008.</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#contatti" class="inline-flex items-center justify-center rounded-full bg-cv-amber px-8 py-4 text-base font-semibold text-cv-ink">Contattaci</a>
+        <a href="#azienda" class="inline-flex items-center justify-center rounded-full border border-white/50 px-8 py-4 text-base font-semibold text-white">Chi siamo</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ L'AZIENDA ============ -->
+<section id="azienda" class="relative z-10 scroll-mt-20 px-5 py-24 sm:px-8 lg:py-32">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6 lg:pl-20">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">L'azienda</p>
+      <h2 class="rv mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Tempestività, velocità ed <span class="bg-gradient-to-r from-[#F7A800] to-[#FFC94D] bg-clip-text text-transparent">efficienza.</span></h2>
+      <p class="rv mt-8 text-lg font-light leading-relaxed text-white/85" style="--d:.16s">Consegne Veloci nasce nel 1987 e dal 2008 è Agenzia e Distributore Esclusivo UPS per la costa adriatica centrale.</p>
+      <p class="rv mt-5 text-lg font-light leading-relaxed text-white/85" style="--d:.24s">Garanzia di tempestività, velocità ed efficienza nella gestione delle spedizioni: è quello che promettiamo a UPS, alle imprese e alle famiglie del territorio.</p>
+    </div>
+    <figure class="rv relative lg:col-span-6" style="--d:.2s">
+      <div class="live-glow relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+        <img src="assets/still-fleet.webp" alt="Flotta di furgoni marroni in fila nel piazzale di una filiale all'alba" width="1600" height="893" loading="lazy" class="aspect-[16/10] w-full object-cover">
+      </div>
+      <figcaption class="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-white/60">56 mezzi, 2 filiali, un solo piazzale ogni mattina</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ SERVIZI ============ -->
+<section id="servizi" class="relative z-10 scroll-mt-20 px-5 pb-24 sm:px-8 lg:pb-32">
+  <div class="mx-auto max-w-7xl lg:pl-20">
+    <div class="max-w-2xl">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">Servizi</p>
+      <h2 class="rv mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Tre servizi, una sola <span class="bg-gradient-to-r from-[#F7A800] to-[#FFC94D] bg-clip-text text-transparent">puntualità.</span></h2>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <article class="rv group rounded-2xl border border-white/10 bg-cv-brown/70 p-8 shadow-2xl shadow-black/40 transition-colors duration-500 hover:border-cv-amber/50" style="--d:.05s">
+        <span class="live-glow relative inline-flex h-14 w-14 items-center justify-center rounded-full border border-cv-amber/40 text-cv-amber"><i data-lucide="package" class="h-6 w-6"></i></span>
+        <h3 class="mt-7 text-xl font-semibold leading-snug">Distribuzione espressa dell'ultimo miglio</h3>
+        <p class="mt-4 leading-relaxed text-white/80">Consegne UPS a imprese e privati nelle cinque province e a San Marino.</p>
+      </article>
+      <article class="rv group rounded-2xl border border-white/10 bg-cv-brown/70 p-8 shadow-2xl shadow-black/40 transition-colors duration-500 hover:border-cv-amber/50" style="--d:.15s">
+        <span class="inline-flex h-14 w-14 items-center justify-center rounded-full border border-cv-amber/40 text-cv-amber"><i data-lucide="truck" class="h-6 w-6"></i></span>
+        <h3 class="mt-7 text-xl font-semibold leading-snug">Ritiri per le imprese</h3>
+        <p class="mt-4 leading-relaxed text-white/80">Ritiro delle spedizioni in partenza dai clienti del territorio, nazionali e internazionali, con la rete UPS.</p>
+      </article>
+      <article class="rv group rounded-2xl border border-white/10 bg-cv-brown/70 p-8 shadow-2xl shadow-black/40 transition-colors duration-500 hover:border-cv-amber/50" style="--d:.25s">
+        <span class="inline-flex h-14 w-14 items-center justify-center rounded-full border border-cv-amber/40 text-cv-amber"><i data-lucide="rotate-ccw" class="h-6 w-6"></i></span>
+        <h3 class="mt-7 text-xl font-semibold leading-snug">Gestione dei resi</h3>
+        <p class="mt-4 leading-relaxed text-white/80">Resi semplici da organizzare, con lo stesso servizio puntuale.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUMERI / TRUST ============ -->
+<section id="numeri" class="relative z-10 scroll-mt-20 bg-cv-brown px-5 py-24 sm:px-8 lg:py-32" aria-labelledby="numeri-title">
+  <div class="mx-auto max-w-7xl lg:pl-20">
+    <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">In numeri</p>
+    <h2 id="numeri-title" class="rv mt-4 max-w-2xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Chi consegna, <span class="bg-gradient-to-r from-[#F7A800] to-[#FFC94D] bg-clip-text text-transparent">da dove viene.</span></h2>
+
+    <ul role="list" class="mt-14 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-6">
+      <li class="rv" style="--d:.0s"><p class=" text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span data-count="1987" data-from="1950">1987</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Anno di fondazione</p></li>
+      <li class="rv" style="--d:.06s"><p class="text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span data-count="2008" data-from="1990">2008</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Agenzia esclusiva UPS</p></li>
+      <li class="rv" style="--d:.12s"><p class="text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span data-count="2" data-from="0">2</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Filiali</p></li>
+      <li class="rv" style="--d:.18s"><p class="text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span class="mr-1 text-base font-semibold text-white/70">circa</span><span data-count="85" data-from="0">85</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Persone</p></li>
+      <li class="rv" style="--d:.24s"><p class="text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span data-count="56" data-from="0">56</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Mezzi</p></li>
+      <li class="rv" style="--d:.3s"><p class="text-4xl font-bold tracking-tight text-cv-amber [text-shadow:0_0_28px_rgba(247,168,0,.28)] sm:text-5xl"><span data-count="5" data-from="0">5</span></p><p class="mt-2 text-sm font-semibold uppercase tracking-wider text-white/75">Province, più San Marino</p></li>
+    </ul>
+
+    <ul class="rv mt-16 grid gap-4 border-t border-white/10 pt-10 md:grid-cols-3" style="--d:.1s">
+      <li class="flex items-center gap-3 text-white/85"><i data-lucide="shield-check" class="h-5 w-5 shrink-0 text-cv-amber"></i><span>ISO 45001 certificata TÜV Austria</span></li>
+      <li class="flex items-center gap-3 text-white/85"><i data-lucide="building-2" class="h-5 w-5 shrink-0 text-cv-amber"></i><span>Associata a Confindustria Romagna</span></li>
+      <li class="flex items-center gap-3 text-white/85"><i data-lucide="badge-check" class="h-5 w-5 shrink-0 text-cv-amber"></i><span>Partner UPS dal 2008</span></li>
+    </ul>
+
+    <div class="rv mt-16 grid items-center gap-10 rounded-2xl border border-white/10 bg-cv-ink/50 p-6 shadow-2xl shadow-black/40 sm:p-10 lg:grid-cols-5" style="--d:.1s">
+      <div class="lg:col-span-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">Il territorio</p>
+        <h3 class="mt-3 text-2xl font-semibold leading-snug">Due filiali sulla costa, cinque province e San Marino da raggiungere ogni giorno.</h3>
+        <p class="mt-4 leading-relaxed text-white/75">Da Cattolica e da Civitanova Marche partono le consegne verso Rimini, Pesaro-Urbino, Macerata, Fermo, Ascoli Piceno e la Repubblica di San Marino.</p>
+      </div>
+      <div class="lg:col-span-3">
+        <svg id="mapSvg" viewBox="0 0 360 420" class="mx-auto h-auto w-full max-w-md" role="img" aria-label="Mappa stilizzata della costa adriatica centrale con le filiali di Cattolica e Civitanova Marche collegate dalla linea del percorso">
+          <path d="M70 14 L96 52 L128 78 L158 98 L192 136 L232 182 L248 196 L262 222 L292 250 L298 284 L306 330 L322 372 L350 412 L360 420 L360 0 L70 0 Z" fill="rgba(255,255,255,.04)"/>
+          <path d="M62 8 C70 30 84 52 96 64 C114 80 140 90 160 104 C186 126 206 150 232 182 C244 194 252 200 262 222 C274 240 286 248 294 260 C298 276 298 292 304 330 C310 350 320 366 334 392" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+          <path id="mapRoute" d="M92 66 C130 120 190 150 230 200 C258 232 276 240 292 250" fill="none" stroke="#F7A800" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 6"/>
+          <g fill="rgba(255,255,255,.55)">
+            <circle cx="54" cy="39" r="3"/><circle cx="30" cy="72" r="3"/><circle cx="122" cy="80" r="3"/><circle cx="230" cy="248" r="3"/><circle cx="284" cy="287" r="3"/><circle cx="256" cy="373" r="3"/>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(255,255,255,.72)" letter-spacing="1">
+            <text x="62" y="30">RIMINI</text><text x="6" y="92">SAN MARINO</text><text x="130" y="76">PESARO-URBINO</text><text x="150" y="252">MACERATA</text><text x="196" y="298">FERMO</text><text x="170" y="378">ASCOLI PICENO</text>
+          </g>
+          <g>
+            <circle cx="92" cy="66" r="5" fill="#F7A800"/><circle class="node-pulse" cx="92" cy="66" r="5" fill="none" stroke="#F7A800" stroke-width="1.5"/>
+            <circle cx="292" cy="250" r="5" fill="#F7A800"/><circle cx="292" cy="250" r="5" fill="none" stroke="#F7A800" stroke-width="1.5" opacity=".5"/>
+            <text x="104" y="62" font-family="Montserrat, sans-serif" font-size="11" font-weight="600" fill="#fff">Cattolica</text>
+            <text x="240" y="226" font-family="Montserrat, sans-serif" font-size="11" font-weight="600" fill="#fff">Civitanova Marche</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOSTENIBILITA' E WHISTLEBLOWING ============ -->
+<section id="sostenibilita" class="relative z-10 scroll-mt-20 px-5 py-24 sm:px-8 lg:py-32">
+  <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:gap-16 lg:pl-20">
+    <div class="lg:col-span-7">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">Sostenibilità</p>
+      <h2 class="rv mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Prima la sicurezza di chi <span class="bg-gradient-to-r from-[#F7A800] to-[#FFC94D] bg-clip-text text-transparent">lavora.</span></h2>
+      <p class="rv mt-8 text-lg font-light leading-relaxed text-white/85" style="--d:.16s">La sicurezza dei lavoratori è parte del lavoro di ogni giorno: il nostro sistema di gestione è certificato ISO 45001 da TÜV Austria.</p>
+      <p class="rv mt-5 text-lg font-light leading-relaxed text-white/85" style="--d:.24s">Operiamo ogni giorno nelle strade, nei paesi e nelle case della costa adriatica centrale. Questo territorio è il nostro posto di lavoro, e ce ne assumiamo la responsabilità.</p>
+      <a class="rv mt-8 inline-flex items-center gap-3 text-sm font-semibold text-cv-amber underline-offset-4 hover:underline" style="--d:.3s" href="https://www.cvel.it/storage-upload/politica-salute-sicurezza.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-5 w-5"></i>Politica per la salute e la sicurezza (PDF)</a>
+      <figure class="rv mt-10 overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40" style="--d:.2s">
+        <img src="assets/still-branch.webp" alt="Interno di una filiale con nastri trasportatori e scaffalature piene di pacchi, luce calda del mattino" width="1600" height="893" loading="lazy" class="aspect-[16/8] w-full object-cover">
+      </figure>
+    </div>
+    <aside class="lg:col-span-5" aria-labelledby="wb-title">
+      <div class="rv relative rounded-2xl border border-cv-amber/40 bg-cv-brown/80 p-8 shadow-2xl shadow-black/40 sm:p-10 lg:sticky lg:top-28" style="--d:.15s">
+        <span class="live-glow relative inline-flex h-14 w-14 items-center justify-center rounded-full border border-cv-amber/50 text-cv-amber"><i data-lucide="shield-alert" class="h-6 w-6"></i></span>
+        <h3 id="wb-title" class="mt-7 text-2xl font-semibold leading-snug">Canale di segnalazione (D.lgs. 24/2023)</h3>
+        <p class="mt-4 leading-relaxed text-white/80">Se vieni a conoscenza di una violazione, puoi segnalarla in modo riservato attraverso il canale dedicato. Le segnalazioni sono gestite secondo il D.lgs. 24/2023.</p>
+        <a href="https://ourwhistleblowing.it/consegne-veloci-srl" target="_blank" rel="noopener" class="mt-8 inline-flex items-center gap-3 rounded-full bg-cv-amber px-7 py-4 text-base font-semibold text-cv-ink transition-colors duration-300 hover:bg-cv-amber-light">Vai al canale di segnalazione<i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ DOCUMENTI (sezione chiara) ============ -->
+<section id="documenti" class="relative z-10 scroll-mt-20 bg-cv-paper px-5 py-24 text-cv-ink sm:px-8 lg:py-32">
+  <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:gap-16 lg:pl-20">
+    <div class="lg:col-span-5">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-brown">Documenti</p>
+      <h2 class="rv mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Informative e <span class="text-cv-brown underline decoration-cv-amber decoration-4 underline-offset-8">policy.</span></h2>
+      <p class="rv mt-8 text-lg font-light leading-relaxed text-cv-brown" style="--d:.16s">I documenti su privacy e cookie, a disposizione di clienti, destinatari e fornitori. Si aprono in formato PDF.</p>
+    </div>
+    <ul class="lg:col-span-7 divide-y divide-cv-ink/10 overflow-hidden rounded-2xl border border-cv-ink/10 bg-white shadow-2xl shadow-cv-brown/10">
+      <li class="rv" style="--d:.05s"><a class="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-cv-paper" href="https://www.cvel.it/storage-file/informative/Informativa-Clienti-CVEL_2025.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-6 w-6 shrink-0 text-cv-brown"></i><span class="flex-1 font-semibold">Informativa privacy clienti</span><i data-lucide="download" class="h-5 w-5 shrink-0 text-cv-brown transition-transform duration-300 group-hover:translate-y-0.5"></i></a></li>
+      <li class="rv" style="--d:.1s"><a class="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-cv-paper" href="https://www.cvel.it/storage-file/informative/Informativa-Destinatari-CVEL_2025.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-6 w-6 shrink-0 text-cv-brown"></i><span class="flex-1 font-semibold">Informativa privacy destinatari</span><i data-lucide="download" class="h-5 w-5 shrink-0 text-cv-brown transition-transform duration-300 group-hover:translate-y-0.5"></i></a></li>
+      <li class="rv" style="--d:.15s"><a class="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-cv-paper" href="https://www.cvel.it/storage-file/informative/Informativa-Fornitori-CVEL_2025.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-6 w-6 shrink-0 text-cv-brown"></i><span class="flex-1 font-semibold">Informativa privacy fornitori</span><i data-lucide="download" class="h-5 w-5 shrink-0 text-cv-brown transition-transform duration-300 group-hover:translate-y-0.5"></i></a></li>
+      <li class="rv" style="--d:.2s"><a class="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-cv-paper" href="https://www.cvel.it/storage-media/privacy-policy.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-6 w-6 shrink-0 text-cv-brown"></i><span class="flex-1 font-semibold">Privacy policy</span><i data-lucide="download" class="h-5 w-5 shrink-0 text-cv-brown transition-transform duration-300 group-hover:translate-y-0.5"></i></a></li>
+      <li class="rv" style="--d:.25s"><a class="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-cv-paper" href="https://www.cvel.it/storage-media/cookie-policy.pdf" target="_blank" rel="noopener"><i data-lucide="file-text" class="h-6 w-6 shrink-0 text-cv-brown"></i><span class="flex-1 font-semibold">Cookie policy</span><i data-lucide="download" class="h-5 w-5 shrink-0 text-cv-brown transition-transform duration-300 group-hover:translate-y-0.5"></i></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ LAVORA CON NOI ============ -->
+<section id="lavora" class="relative z-10 scroll-mt-20 overflow-hidden border-y border-white/10 px-5 py-20 sm:px-8">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('assets/still-team.webp')" aria-hidden="true"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-cv-ink via-cv-ink/90 to-cv-ink/60" aria-hidden="true"></div>
+  <div class="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 lg:flex-row lg:items-center lg:pl-20">
+    <div class="max-w-2xl">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">Lavora con noi</p>
+      <h2 class="rv mt-4 text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl" style="--d:.08s">Cerchiamo corrieri e personale di filiale a Cattolica e Civitanova Marche.</h2>
+    </div>
+    <a href="mailto:operativo.cattolica@cvel.it?subject=Candidatura" class="rv inline-flex shrink-0 items-center gap-3 rounded-full bg-cv-amber px-8 py-4 text-base font-semibold text-cv-ink transition-colors duration-300 hover:bg-cv-amber-light" style="--d:.16s"><i data-lucide="mail" class="h-5 w-5"></i>Invia il tuo curriculum</a>
+  </div>
+</section>
+
+<!-- ============ CONTATTI ============ -->
+<section id="contatti" class="relative z-10 scroll-mt-20 px-5 py-24 sm:px-8 lg:py-32">
+  <div class="mx-auto max-w-7xl lg:pl-20">
+    <div class="max-w-2xl">
+      <p class="rv text-xs font-semibold uppercase tracking-[0.2em] text-cv-amber">Contatti</p>
+      <h2 class="rv mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl" style="--d:.08s">Parliamo della tua <span class="bg-gradient-to-r from-[#F7A800] to-[#FFC94D] bg-clip-text text-transparent">spedizione.</span></h2>
+      <p class="rv mt-6 text-lg font-light leading-relaxed text-white/85" style="--d:.16s">Scrivici o chiamaci: la tua richiesta arriva alla filiale che serve la tua zona.</p>
+    </div>
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-14">
+      <div class="space-y-6">
+        <article class="rv rounded-2xl border border-white/10 bg-cv-brown/70 p-8 shadow-2xl shadow-black/40" style="--d:.05s">
+          <div class="flex items-start gap-5">
+            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-cv-amber/40 text-cv-amber"><i data-lucide="map-pin" class="h-6 w-6"></i></span>
+            <div>
+              <h3 class="text-xl font-semibold">Cattolica (RN)</h3>
+              <address class="mt-3 not-italic leading-relaxed text-white/80">Via Vincenzo Bellini 18/20<br>47841 Cattolica</address>
+              <a href="tel:+390541833280" class="mt-4 inline-flex min-h-[44px] items-center gap-2 font-semibold text-cv-amber hover:underline"><i data-lucide="phone" class="h-5 w-5"></i>0541 833280</a>
+            </div>
+          </div>
+        </article>
+        <article class="rv rounded-2xl border border-white/10 bg-cv-brown/70 p-8 shadow-2xl shadow-black/40" style="--d:.12s">
+          <div class="flex items-start gap-5">
+            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-cv-amber/40 text-cv-amber"><i data-lucide="map-pin" class="h-6 w-6"></i></span>
+            <div>
+              <h3 class="text-xl font-semibold">Civitanova Marche (MC)</h3>
+              <address class="mt-3 not-italic leading-relaxed text-white/80">Via Enzo Ferrari 20/C<br>62012 Civitanova Marche</address>
+              <a href="tel:+390733898068" class="mt-4 inline-flex min-h-[44px] items-center gap-2 font-semibold text-cv-amber hover:underline"><i data-lucide="phone" class="h-5 w-5"></i>0733 898068</a>
+            </div>
+          </div>
+        </article>
+        <a href="mailto:operativo.cattolica@cvel.it" class="rv flex min-h-[44px] items-center gap-4 rounded-2xl border border-white/10 px-8 py-6 font-semibold transition-colors duration-300 hover:border-cv-amber/60" style="--d:.18s"><i data-lucide="mail" class="h-6 w-6 shrink-0 text-cv-amber"></i>operativo.cattolica@cvel.it</a>
+      </div>
+
+      <form id="contactForm" class="rv rounded-2xl border border-white/10 bg-cv-brown/80 p-6 shadow-2xl shadow-black/40 sm:p-9" style="--d:.1s" novalidate aria-labelledby="form-title">
+        <h3 id="form-title" class="text-xl font-semibold">Scrivici una richiesta</h3>
+        <p class="mt-2 text-sm text-white/70">I campi con * sono obbligatori.</p>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+
+        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <label for="f-nome" class="mb-2 block text-sm font-semibold">Nome e cognome *</label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="err-nome" class="w-full rounded-xl border border-white/25 bg-cv-ink/60 px-4 py-3.5 text-base text-white placeholder-white/40 transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40 aria-[invalid=true]:border-[#ff9b7a]">
+            <p id="err-nome" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="f-azienda" class="mb-2 block text-sm font-semibold">Azienda <span class="font-light text-white/60">(facoltativo)</span></label>
+            <input id="f-azienda" name="azienda" type="text" autocomplete="organization" class="w-full rounded-xl border border-white/25 bg-cv-ink/60 px-4 py-3.5 text-base text-white transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40">
+          </div>
+          <div>
+            <label for="f-email" class="mb-2 block text-sm font-semibold">Email *</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="err-email" class="w-full rounded-xl border border-white/25 bg-cv-ink/60 px-4 py-3.5 text-base text-white transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40 aria-[invalid=true]:border-[#ff9b7a]">
+            <p id="err-email" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+          <div>
+            <label for="f-tel" class="mb-2 block text-sm font-semibold">Telefono</label>
+            <input id="f-tel" name="telefono" type="tel" autocomplete="tel" aria-describedby="err-tel" class="w-full rounded-xl border border-white/25 bg-cv-ink/60 px-4 py-3.5 text-base text-white transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40 aria-[invalid=true]:border-[#ff9b7a]">
+            <p id="err-tel" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="f-filiale" class="mb-2 block text-sm font-semibold">Filiale di riferimento *</label>
+            <select id="f-filiale" name="filiale" required aria-describedby="err-filiale" class="w-full rounded-xl border border-white/25 bg-cv-ink px-4 py-3.5 text-base text-white transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40 aria-[invalid=true]:border-[#ff9b7a]">
+              <option value="">Seleziona la filiale</option>
+              <option value="Cattolica (RN)">Cattolica (RN)</option>
+              <option value="Civitanova Marche (MC)">Civitanova Marche (MC)</option>
+            </select>
+            <p id="err-filiale" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="f-msg" class="mb-2 block text-sm font-semibold">Messaggio *</label>
+            <textarea id="f-msg" name="messaggio" rows="5" required aria-describedby="err-msg" class="w-full rounded-xl border border-white/25 bg-cv-ink/60 px-4 py-3.5 text-base text-white transition focus:border-cv-amber focus:outline-none focus:ring-2 focus:ring-cv-amber/40 aria-[invalid=true]:border-[#ff9b7a]"></textarea>
+            <p id="err-msg" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+          <div class="sm:col-span-2">
+            <div class="flex items-start gap-3">
+              <input id="f-privacy" name="privacy" type="checkbox" required aria-describedby="err-privacy" class="mt-1 h-5 w-5 shrink-0 rounded border-white/40 bg-cv-ink accent-[#F7A800]">
+              <label for="f-privacy" class="text-sm leading-relaxed text-white/85">Ho letto la <a class="font-semibold text-cv-amber underline underline-offset-2" href="https://www.cvel.it/storage-media/privacy-policy.pdf" target="_blank" rel="noopener">privacy policy</a> e acconsento al trattamento dei dati per rispondere alla mia richiesta. *</label>
+            </div>
+            <p id="err-privacy" class="mt-2 hidden text-sm text-[#ffb09a]"></p>
+          </div>
+        </div>
+
+        <button type="submit" class="mt-8 inline-flex min-h-[48px] w-full items-center justify-center gap-3 rounded-full bg-cv-amber px-8 py-4 text-base font-semibold text-cv-ink transition-colors duration-300 hover:bg-cv-amber-light sm:w-auto"><i data-lucide="send" class="h-5 w-5"></i>Invia richiesta</button>
+        <div id="formStatus" class="mt-5 text-base leading-relaxed" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="relative z-10 border-t border-white/10 bg-cv-ink px-5 py-16 sm:px-8">
+  <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:pl-20">
+    <div class="lg:col-span-4">
+      <a href="#top" class="inline-block overflow-hidden rounded-xl bg-white" aria-label="Consegne Veloci, torna in alto"><img src="assets/brand/logo-cv.png" alt="Consegne Veloci, agenzia UPS" width="267" height="209" loading="lazy" class="h-16 w-auto"></a>
+      <p class="mt-6 font-semibold">Consegne Veloci S.r.l.</p>
+      <p class="mt-1 text-sm text-white/70">P.IVA 01051500401</p>
+    </div>
+    <div class="grid gap-8 sm:grid-cols-2 lg:col-span-5">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">Filiali</p>
+        <p class="mt-4 flex items-start gap-3 text-sm leading-relaxed text-white/80"><i data-lucide="map-pin" class="mt-0.5 h-[18px] w-[18px] shrink-0 text-cv-amber"></i><span>Cattolica (RN)<br>Via Vincenzo Bellini 18/20, 47841<br><a class="hover:text-cv-amber" href="tel:+390541833280">0541 833280</a></span></p>
+        <p class="mt-4 flex items-start gap-3 text-sm leading-relaxed text-white/80"><i data-lucide="map-pin" class="mt-0.5 h-[18px] w-[18px] shrink-0 text-cv-amber"></i><span>Civitanova Marche (MC)<br>Via Enzo Ferrari 20/C, 62012<br><a class="hover:text-cv-amber" href="tel:+390733898068">0733 898068</a></span></p>
+      </div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">Link utili</p>
+        <ul class="mt-4 space-y-3 text-sm text-white/80">
+          <li><a class="inline-flex min-h-[28px] items-center gap-3 hover:text-cv-amber" href="#documenti"><i data-lucide="file-text" class="h-[18px] w-[18px] text-cv-amber"></i>Documenti</a></li>
+          <li><a class="inline-flex min-h-[28px] items-center gap-3 hover:text-cv-amber" href="https://ourwhistleblowing.it/consegne-veloci-srl" target="_blank" rel="noopener"><i data-lucide="shield-alert" class="h-[18px] w-[18px] text-cv-amber"></i>Whistleblowing</a></li>
+          <li><a class="inline-flex min-h-[28px] items-center gap-3 hover:text-cv-amber" href="https://www.cvel.it/storage-media/privacy-policy.pdf" target="_blank" rel="noopener"><i data-lucide="lock" class="h-[18px] w-[18px] text-cv-amber"></i>Privacy</a></li>
+          <li><a class="inline-flex min-h-[28px] items-center gap-3 hover:text-cv-amber" href="https://www.cvel.it/storage-media/cookie-policy.pdf" target="_blank" rel="noopener"><i data-lucide="cookie" class="h-[18px] w-[18px] text-cv-amber"></i>Cookie</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="lg:col-span-3">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-cv-amber">Contatti</p>
+      <a href="mailto:operativo.cattolica@cvel.it" class="mt-4 inline-flex min-h-[28px] items-center gap-3 text-sm text-white/80 hover:text-cv-amber"><i data-lucide="mail" class="h-[18px] w-[18px] text-cv-amber"></i>operativo.cattolica@cvel.it</a>
+    </div>
+  </div>
+  <div class="mx-auto mt-14 flex max-w-7xl flex-col gap-3 border-t border-white/10 pt-8 text-xs text-white/60 sm:flex-row sm:justify-between lg:pl-20">
+    <p>© <span id="year">2026</span> Consegne Veloci S.r.l. Tutti i diritti riservati. Immagini e video del percorso generati con AI.</p>
+    <p>Credits: <a class="underline underline-offset-2 hover:text-cv-amber" href="https://www.propagandaadv.com" target="_blank" rel="noopener">Propaganda Adv</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+const smooth = (p, e0, e1) => { const t = clamp((p - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
+const RM = matchMedia('(prefers-reduced-motion: reduce)');
+const icons = () => { if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.5 } }); };
+icons();
+$('#year').textContent = new Date().getFullYear();
+
+/* ---------- configurazione form ---------- */
+// Incolla qui l'endpoint Formspree (es. 'https://formspree.io/f/xxxxxxxx'). Se vuoto, il form usa il mailto di ripiego.
+const FORM_ENDPOINT = '';
+const MAIL_TO = 'operativo.cattolica@cvel.it';
+
+/* ---------- pausa animazioni a scheda nascosta ---------- */
+document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
+
+/* ---------- menu mobile ---------- */
+const menuBtn = $('#menuBtn'), panel = $('#menuPanel'), iMenu = $('#iconMenu'), iClose = $('#iconClose');
+function setMenu(open) {
+  panel.classList.toggle('invisible', !open);
+  panel.classList.toggle('opacity-0', !open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
+  document.body.style.overflow = open ? 'hidden' : '';
+  const m = $('#menuBtn svg.lucide-menu') || iMenu, x = $('#menuBtn svg.lucide-x') || iClose;
+  m.classList.toggle('hidden', open); x.classList.toggle('hidden', !open);
+  if (open) $('.menu-link', panel).focus();
+}
+menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+$$('.menu-link', panel).forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') { setMenu(false); menuBtn.focus(); } });
+matchMedia('(min-width:1024px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+/* ---------- reveal on scroll ---------- */
+const rvIO = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in'); rvIO.unobserve(e.target);
+  setTimeout(() => e.target.classList.add('done'), 2000);   // ritira i ritardi di stagger
+}), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+$$('.rv').forEach(el => rvIO.observe(el));
+
+/* ---------- contatori ---------- */
+const counters = $$('[data-count]');
+function runCounter(el) {
+  const to = +el.dataset.count, from = +el.dataset.from || 0;
+  if (RM.matches) { el.textContent = to; return; }
+  const t0 = performance.now(), dur = 1700;
+  (function step(now) {
+    const t = clamp((now - t0) / dur, 0, 1), k = 1 - Math.pow(1 - t, 3);
+    const txt = String(Math.round(from + (to - from) * k));
+    if (el.textContent !== txt) el.textContent = txt;
+    if (t < 1) requestAnimationFrame(step);
+  })(t0);
+}
+const cIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { runCounter(e.target); cIO.unobserve(e.target); } }), { threshold: 0.6 });
+counters.forEach(el => { if (!RM.matches) el.textContent = el.dataset.from || '0'; cIO.observe(el); });
+
+/* ---------- mappa: linea del percorso tra le filiali ---------- */
+const mapRoute = $('#mapRoute');
+if (mapRoute) {
+  const mIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    if (!RM.matches) { mapRoute.animate([{ strokeDashoffset: 260, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], { duration: 2200, easing: 'cubic-bezier(.22,.8,.24,1)', fill: 'backwards' }); }
+    mIO.disconnect();
+  }), { threshold: 0.4 });
+  mIO.observe($('#mapSvg'));
+}
+
+/* ---------- testo diviso in parole (seed fisso) ---------- */
+function rng(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+$$('[data-split]').forEach((el, n) => {
+  const text = el.textContent.trim(), r = rng(7 + n * 31);
+  const words = text.split(/\s+/);
+  el.textContent = '';
+  const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = text.replace(/\*/g, '');
+  const vis = document.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+  let em = false;
+  words.forEach((w, i) => {
+    if (w.startsWith('*')) { em = true; w = w.slice(1); }
+    const endEm = w.endsWith('*'); if (endEm) w = w.slice(0, -1);
+    const s = document.createElement('span'); s.className = 'w' + (em ? ' gx' : '');
+    s.style.setProperty('--th', (i / words.length * 0.45 + r() * 0.05).toFixed(3));
+    s.textContent = w; vis.appendChild(s);
+    if (endEm) em = false;
+  });
+  el.append(sr, vis);
+});
+
+/* ---------- HERO scrub ---------- */
+const hero = $('#hero'), stage = $('.stage', hero), video = $('#heroVideo'), ring = $('.ring', hero), posterEl = $('.poster', hero);
+const VIDEO_URL = 'assets/hero-scrub.mp4';
+const VIDEO_BYTES = 10055726;
+const bands = $$('.band', hero).map(el => ({ el, a: +el.dataset.a, b: +el.dataset.b, ramp: +(el.dataset.ramp || 0), op: -1, k: -1, live: false }));
+let target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true, loadK = 0;
+let seekBusy = false, pendingTime = null, started = false, scrubOn = false, loadRaf = null;
+
+function heroProgress() {
+  const total = hero.offsetHeight - innerHeight;
+  return total > 0 ? clamp(-hero.getBoundingClientRect().top / total, 0, 1) : 0;
+}
+
+function updateCaptions(p) {
+  bands.forEach((bd, i) => {
+    const f = Math.min(0.02, (bd.b - bd.a) / 3);
+    let op = (i === 0 ? 1 : smooth(p, bd.a, bd.a + f)) * (i === bands.length - 1 ? 1 : 1 - smooth(p, bd.b - f, bd.b));
+    let k = clamp((p - bd.a) / (bd.ramp || Math.min(0.025, (bd.b - bd.a) * 0.35)), 0, 1);
+    if (i === 0) k = Math.max(k, loadK);
+    if (Math.abs(op - bd.op) > 0.004 || (op === 0) !== (bd.op === 0)) { bd.op = op; bd.el.style.opacity = op.toFixed(3); }
+    if (Math.abs(k - bd.k) > 0.008 || (k === 1) !== (bd.k === 1) || (k === 0) !== (bd.k === 0)) { bd.k = k; bd.el.style.setProperty('--k', k.toFixed(3)); }
+    const live = op > 0.5;
+    if (live !== bd.live) { bd.live = live; bd.el.classList.toggle('live', live); }
+  });
+}
+
+function requestSeek(t) {
+  if (!video.duration) return;
+  t = clamp(t, 0, video.duration - 0.03);
+  if (seekBusy) { pendingTime = t; return; }
+  seekBusy = true; video.currentTime = t;
+}
+video.addEventListener('seeked', () => {
+  seekBusy = false;
+  if (pendingTime !== null) { const t = pendingTime; pendingTime = null; requestSeek(t); }
+});
+video.addEventListener('error', () => { seekBusy = false; pendingTime = null; failVideo(); });
+
+function tick(now) {
+  const dt = Math.min(100, now - (lastTick || now)); lastTick = now;
+  const k = 0.16;
+  shown += (target - shown) * (1 - Math.pow(1 - k, dt / 16.667));
+  if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
+  else rafId = requestAnimationFrame(tick);
+  requestSeek(shown * (video.duration || 0));
+  updateCaptions(shown);
+}
+function onScroll() {
+  target = heroProgress();
+  if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick);
+}
+new IntersectionObserver(es => es.forEach(e => {
+  heroOnScreen = e.isIntersecting;
+  if (heroOnScreen && scrubOn) onScroll();
+}), { rootMargin: '10% 0px' }).observe(hero);
+
+function failVideo() {
+  stage.classList.add('video-failed');
+  ring.style.opacity = 0;
+  video.style.display = 'none';       // la pagina resta completa sul poster
+}
+
+async function loadHeroBlob() {
+  const ctrl = new AbortController();
+  let watchdog = setTimeout(() => ctrl.abort(), 20000);
+  const res = await fetch(VIDEO_URL, { priority: 'low', signal: ctrl.signal });
+  if (!res.ok) throw new Error('video ' + res.status);
+  const total = Number(res.headers.get('Content-Length')) || VIDEO_BYTES;
+  const reader = res.body.getReader();
+  const chunks = []; let got = 0, lastRing = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    clearTimeout(watchdog); watchdog = setTimeout(() => ctrl.abort(), 20000);
+    chunks.push(value); got += value.length;
+    const frac = Math.min(1, got / total), now = performance.now();
+    if (now - lastRing > 100 || frac === 1) { lastRing = now; ring.style.setProperty('--ld', Math.round(126 * (1 - frac))); }
+  }
+  clearTimeout(watchdog);
+  ring.style.setProperty('--ld', 0);
+  video.src = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
+  video.load();
+  video.addEventListener('canplay', () => {
+    stage.classList.add('video-ready');
+    requestSeek(heroProgress() * video.duration);
+    onScroll();
+  }, { once: true });
+}
+
+function initHeroOnce() {
+  if (started) return; started = true;
+  posterEl.style.backgroundImage = "url('assets/hero-poster.webp')";
+  let go = false;
+  const start = () => { if (go) return; go = true; loadHeroBlob().catch(failVideo); };
+  const img = new Image(); img.onload = start; img.onerror = start; img.src = 'assets/hero-poster.webp';
+  setTimeout(start, 4000);
+}
+
+function runLoadRamp() {
+  if (loadRaf || loadK >= 1) return;
+  const t0 = performance.now(), dur = 1300;
+  (function step(now) {
+    const t = clamp((now - t0) / dur, 0, 1);
+    loadK = 1 - Math.pow(1 - t, 3);
+    updateCaptions(shown);
+    loadRaf = t < 1 ? requestAnimationFrame(step) : null;
+  })(t0);
+}
+
+const GATES = [
+  '(max-width: 720px)',
+  '(orientation: portrait) and (max-width: 1024px)',
+  '(orientation: portrait) and (pointer: coarse)',
+  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+  '(prefers-reduced-motion: reduce)'
+];
+function enableScrub() {
+  if (scrubOn) return; scrubOn = true;
+  initHeroOnce();
+  addEventListener('scroll', onScroll, { passive: true });
+  bands.forEach(b => { b.op = -1; b.k = -1; });
+  shown = target = heroProgress();
+  updateCaptions(shown);
+  runLoadRamp();
+  onScroll();
+}
+function disableScrub() {
+  if (!scrubOn) return; scrubOn = false;
+  removeEventListener('scroll', onScroll);
+  if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+}
+function applyHeroMode() {
+  if (GATES.some(q => matchMedia(q).matches)) disableScrub(); else enableScrub();
+  scheduleRoute();
+}
+const MQLS = GATES.map(q => matchMedia(q));
+MQLS.forEach(m => m.addEventListener('change', applyHeroMode));
+
+/* ---------- linea del percorso ---------- */
+const route = $('#route'), routeSvg = $('#routeSvg'), pBg = $('#routeBg'), pFg = $('#routeFg'), nodesG = $('#routeNodes'), dot = $('#routeDot'), halo = $('#routeDotHalo');
+let pts = [], pathLen = 0, routeRaf = null, lastDot = [-99, -99], lastLit = -1, routeTimer = null;
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+function buildRoute() {
+  if (getComputedStyle(route).display === 'none') return;
+  const docH = document.documentElement.scrollHeight;
+  route.style.height = docH + 'px'; routeSvg.setAttribute('height', docH);
+  const heroVisible = getComputedStyle(hero).display !== 'none';
+  const vh = innerHeight;
+  const list = [];
+  if (heroVisible) {
+    const range = hero.offsetHeight - vh, top = hero.offsetTop;
+    [['MAGAZZINO', 0.1], ['STRADA', 0.38], ['CONSEGNA', 0.84]].forEach(([l, p]) => list.push({ y: top + p * range + vh * 0.5, label: l }));
+  } else {
+    $$('#hero-static .static-block').forEach((b, i) => list.push({ y: b.offsetTop + b.offsetHeight * 0.6, label: ['MAGAZZINO', 'STRADA', 'CONSEGNA'][i] }));
+  }
+  ['azienda', 'servizi', 'numeri', 'sostenibilita', 'documenti', 'lavora', 'contatti'].forEach(id => {
+    const el = document.getElementById(id); if (el) list.push({ y: el.offsetTop + 56, label: '' });
+  });
+  pts = list.map((p, i) => ({ ...p, x: i % 2 ? 46 : 22 }));
+  let d = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1], b = pts[i], m = (b.y - a.y) / 2;
+    d += ` C ${a.x} ${a.y + m} ${b.x} ${b.y - m} ${b.x} ${b.y}`;
+  }
+  pBg.setAttribute('d', d); pFg.setAttribute('d', d);
+  pathLen = pFg.getTotalLength();
+  pFg.style.strokeDasharray = pathLen;
+  nodesG.textContent = '';
+  pts.forEach(p => {
+    const c = document.createElementNS(SVG_NS, 'circle');
+    c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('r', p.label ? 5 : 4);
+    c.setAttribute('class', 'node'); c.setAttribute('fill', '#0E0A08'); c.setAttribute('stroke', 'rgba(255,255,255,.4)'); c.setAttribute('stroke-width', '1.5');
+    nodesG.appendChild(c); p.el = c;
+    if (p.label) {
+      const t = document.createElementNS(SVG_NS, 'text'); t.setAttribute('x', p.x + 12); t.setAttribute('y', p.y + 3); t.textContent = p.label; nodesG.appendChild(t);
+    }
+  });
+  lastLit = -1; lastDot = [-99, -99];
+  updateRoute();
+}
+function updateRoute() {
+  routeRaf = null;
+  if (!pathLen || !pts.length) return;
+  const y = scrollY + innerHeight * 0.55;
+  const prog = RM.matches ? 1 : clamp((y - pts[0].y) / (pts[pts.length - 1].y - pts[0].y), 0, 1);
+  pFg.style.strokeDashoffset = (pathLen * (1 - prog)).toFixed(1);
+  const pt = pFg.getPointAtLength(pathLen * prog);
+  if (Math.abs(pt.x - lastDot[0]) > 0.5 || Math.abs(pt.y - lastDot[1]) > 0.5) {
+    lastDot = [pt.x, pt.y];
+    dot.setAttribute('cx', pt.x.toFixed(1)); dot.setAttribute('cy', pt.y.toFixed(1));
+    halo.setAttribute('cx', pt.x.toFixed(1)); halo.setAttribute('cy', pt.y.toFixed(1));
+  }
+  let lit = -1; pts.forEach((p, i) => { if (RM.matches || y >= p.y) lit = i; });
+  if (lit !== lastLit) {
+    lastLit = lit;
+    pts.forEach((p, i) => { const on = i <= lit; p.el.setAttribute('fill', on ? '#F7A800' : '#0E0A08'); p.el.setAttribute('stroke', on ? '#F7A800' : 'rgba(255,255,255,.4)'); });
+  }
+}
+function scheduleRoute() { clearTimeout(routeTimer); routeTimer = setTimeout(buildRoute, 150); }
+addEventListener('scroll', () => { if (routeRaf === null) routeRaf = requestAnimationFrame(updateRoute); }, { passive: true });
+addEventListener('resize', scheduleRoute);
+addEventListener('load', () => { buildRoute(); setTimeout(buildRoute, 800); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleRoute);
+
+/* ---------- movimento ridotto: stati finali, in entrambe le direzioni ---------- */
+function pinToFinalStates() {
+  counters.forEach(el => { el.textContent = el.dataset.count; });
+  $$('.rv').forEach(el => el.classList.add('in', 'done'));
+  updateRoute();
+}
+RM.addEventListener('change', e => {
+  if (e.matches) pinToFinalStates();
+  else { counters.forEach(el => { el.textContent = el.dataset.count; }); updateRoute(); }
+  applyHeroMode();
+});
+if (RM.matches) pinToFinalStates();
+applyHeroMode();
+
+/* ---------- form ---------- */
+const form = $('#contactForm'), statusEl = $('#formStatus');
+const rules = {
+  nome: { el: '#f-nome', err: '#err-nome', test: v => v.trim().length >= 2, msg: 'Inserisci il tuo nome e cognome.' },
+  email: { el: '#f-email', err: '#err-email', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()), msg: 'Inserisci un indirizzo email valido, per esempio nome@azienda.it.' },
+  telefono: { el: '#f-tel', err: '#err-tel', test: v => v.trim() === '' || /^[+\d][\d\s().\-]{5,}$/.test(v.trim()), msg: 'Il numero di telefono non sembra corretto. Usa solo cifre, spazi e il segno +.' },
+  filiale: { el: '#f-filiale', err: '#err-filiale', test: v => v !== '', msg: 'Scegli la filiale a cui scrivere.' },
+  messaggio: { el: '#f-msg', err: '#err-msg', test: v => v.trim().length >= 10, msg: 'Scrivi un messaggio di almeno 10 caratteri.' },
+  privacy: { el: '#f-privacy', err: '#err-privacy', test: (v, el) => el.checked, msg: 'Per inviare la richiesta devi accettare l\'informativa privacy.' }
+};
+function checkField(key) {
+  const r = rules[key], el = $(r.el), err = $(r.err);
+  const ok = r.test(el.value, el);
+  el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+  err.textContent = ok ? '' : r.msg; err.classList.toggle('hidden', ok);
+  return ok;
+}
+Object.keys(rules).forEach(k => {
+  const el = $(rules[k].el);
+  el.addEventListener('blur', () => { if (el.dataset.touched || el.value || el.type === 'checkbox') checkField(k); });
+  el.addEventListener('input', () => { el.dataset.touched = '1'; if (el.getAttribute('aria-invalid') === 'true') checkField(k); });
+  el.addEventListener('change', () => { if (el.getAttribute('aria-invalid') === 'true') checkField(k); });
+});
+function showStatus(kind, html) {
+  statusEl.className = 'mt-5 rounded-xl border p-4 text-base leading-relaxed ' + (kind === 'ok' ? 'border-cv-amber/50 bg-cv-ink/60 text-white' : 'border-[#ff9b7a]/60 bg-cv-ink/60 text-[#ffd0c2]');
+  statusEl.innerHTML = html;
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  statusEl.textContent = ''; statusEl.className = 'mt-5';
+  const bad = Object.keys(rules).filter(k => !checkField(k));
+  if (bad.length) {
+    showStatus('err', `Controlla ${bad.length === 1 ? 'il campo evidenziato' : 'i campi evidenziati'} e riprova.`);
+    $(rules[bad[0]].el).focus();
+    return;
+  }
+  const fd = new FormData(form);
+  if (fd.get('_gotcha')) return;
+  const btn = form.querySelector('button[type=submit]'); btn.disabled = true;
+  if (FORM_ENDPOINT) {
+    try {
+      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error(res.status);
+      form.reset(); Object.keys(rules).forEach(k => $(rules[k].el).setAttribute('aria-invalid', 'false'));
+      showStatus('ok', '<strong class="font-semibold">Richiesta inviata.</strong> Grazie, ti risponderemo appena possibile alla email che hai indicato.');
+    } catch (_) {
+      showStatus('err', `Non siamo riusciti a inviare la richiesta. Riprova tra poco, oppure scrivici a <a class="font-semibold underline" href="mailto:${MAIL_TO}">${MAIL_TO}</a>.`);
+    }
+  } else {
+    // ripiego: mailto. Il messaggio parte solo quando il visitatore preme Invia nella sua app di posta.
+    const body = [
+      'Nome e cognome: ' + fd.get('nome'), 'Azienda: ' + (fd.get('azienda') || '-'), 'Email: ' + fd.get('email'),
+      'Telefono: ' + (fd.get('telefono') || '-'), 'Filiale di riferimento: ' + fd.get('filiale'), '', fd.get('messaggio')
+    ].join('\n');
+    const href = 'mailto:' + MAIL_TO + '?subject=' + encodeURIComponent('Richiesta dal sito: ' + fd.get('nome')) + '&body=' + encodeURIComponent(body);
+    showStatus('ok', `<strong class="font-semibold">Quasi fatto.</strong> Si è aperta la tua app di posta con il messaggio già scritto: premi <em>Invia</em> da lì per completare la richiesta. Se non si è aperta, scrivici direttamente a <a class="font-semibold underline" href="${href}">${MAIL_TO}</a>.`);
+    window.location.href = href;
+  }
+  btn.disabled = false;
+});
+})();
+</script>
+</body>
+</html>
